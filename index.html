@@ -18,8 +18,8 @@
 
     body {
       min-height: 100vh;
-      background: #0f172a;
-      color: #e5e7eb;
+      background: #020617;
+      color: #0f172a;
       display: flex;
       justify-content: center;
       padding: 24px 12px;
@@ -29,7 +29,6 @@
       width: 100%;
       max-width: 960px;
       background: #f9fafb;
-      color: #111827;
       border-radius: 18px;
       box-shadow: 0 25px 60px rgba(15, 23, 42, 0.35);
       overflow: hidden;
@@ -38,7 +37,7 @@
     .app-header {
       padding: 20px 24px 16px;
       border-bottom: 1px solid #e5e7eb;
-      background: linear-gradient(135deg, #4c1d95, #be185d);
+      background: linear-gradient(135deg, #0f6bff, #2563eb);
       color: #f9fafb;
     }
 
@@ -113,8 +112,8 @@
     }
 
     .form-group input:focus {
-      border-color: #8b5cf6;
-      box-shadow: 0 0 0 1px rgba(139, 92, 246, 0.45);
+      border-color: #2563eb;
+      box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.45);
     }
 
     .helper-text {
@@ -134,17 +133,17 @@
       font-size: 14px;
       font-weight: 600;
       letter-spacing: 0.01em;
-      background: linear-gradient(135deg, #4c1d95, #22c55e);
+      background: linear-gradient(135deg, #0f6bff, #1d4ed8);
       color: #f9fafb;
       width: 100%;
       margin-top: 4px;
-      box-shadow: 0 12px 30px rgba(76, 29, 149, 0.45);
+      box-shadow: 0 12px 30px rgba(15, 118, 255, 0.45);
       transition: transform 0.1s ease, box-shadow 0.12s ease;
     }
 
     .btn:hover {
       transform: translateY(-1px);
-      box-shadow: 0 16px 34px rgba(76, 29, 149, 0.6);
+      box-shadow: 0 16px 34px rgba(15, 118, 255, 0.6);
     }
 
     .btn:active {
@@ -181,10 +180,10 @@
     }
 
     .preview-header h3 {
-      font-size: 18px;
+      font-size: 20px;
       font-weight: 700;
       color: #111827;
-      margin-bottom: 2px;
+      margin-bottom: 4px;
     }
 
     .preview-header p {
@@ -198,7 +197,7 @@
       border: 1px solid #e5e7eb;
       background: #111827;
       height: 0;
-      padding-bottom: 70%; /* 7:10 ratio */
+      padding-bottom: 70%;
       position: relative;
       margin-bottom: 12px;
     }
@@ -227,44 +226,45 @@
 
     .preview-footer {
       display: flex;
-      flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
       gap: 10px;
       font-size: 12px;
       color: #6b7280;
+      margin-top: 6px;
     }
 
-    .brand-inline {
-      display: inline-flex;
+    .preview-footer-right {
+      display: flex;
       align-items: center;
       gap: 6px;
+      font-size: 11px;
+      color: #9ca3af;
     }
 
     .brand-mark {
       width: 18px;
       height: 18px;
       border-radius: 6px;
-      background: radial-gradient(circle at 20% 20%, #22c55e, #4c1d95);
-    }
-
-    .signature-block {
-      margin-top: 4px;
-      font-size: 12px;
-      color: #4b5563;
-    }
-
-    .signature-block span {
-      font-weight: 600;
-      color: #111827;
+      border: 2px solid #0f6bff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: #0f6bff;
     }
   </style>
 </head>
 <body>
+  <!-- Hidden images used inside the PDF (place PNG files with these names in the repo) -->
+  <img id="knsLogo" src="kns-logo.png" alt="KNS Business Lab Logo" style="display:none" />
+  <img id="kajalSignature" src="kajal-signature.png" alt="Signature of Kajal Saha" style="display:none" />
+
   <main class="app-shell">
     <header class="app-header">
       <h1>Course Certificate Generator</h1>
-      <p>Fill in the details, click "Generate My Certificate" and instantly get a downloadable PDF with KNS Business Lab branding.</p>
+      <p>Fill in the details, click "Generate My Certificate" and download a KNS Business Lab–branded certificate as PDF.</p>
     </header>
 
     <section class="app-body">
@@ -287,7 +287,7 @@
           <div class="form-group">
             <label for="phone">Phone Number <span class="required">*</span></label>
             <input type="tel" id="phone" placeholder="1234567890" required />
-            <p class="helper-text">These details are only used to display on the generated certificate or for your internal record.</p>
+            <p class="helper-text">These details are only used for your internal record, they will not be printed on the certificate.</p>
           </div>
 
           <div class="form-group">
@@ -308,7 +308,7 @@
       <div class="card">
         <div class="preview-header">
           <h3>Congratulations!</h3>
-          <p>Your certificate will appear here after generation.</p>
+          <p>Your certificate is ready for preview and download.</p>
         </div>
 
         <div id="previewWrapper" class="preview-frame-wrapper" hidden>
@@ -321,24 +321,12 @@
         </div>
 
         <div class="preview-footer">
-          <div>
-            <button id="downloadBtn" class="btn btn-secondary" type="button" disabled>
-              ⬇️ Download My Certificate
-            </button>
-            <div class="signature-block">
-              Authorized by <span>KNS Business Lab</span><br />
-              <span>Nayem Hossain</span>, Co‑Founder & Trainer
-            </div>
-          </div>
-
-          <div>
-            <div class="brand-inline">
-              <div class="brand-mark"></div>
-              <span>KNS Business Lab</span>
-            </div>
-            <div style="font-size: 11px; color: #9ca3af; margin-top: 2px;">
-              Science‑Based Mind Training Platform
-            </div>
+          <button id="downloadBtn" class="btn btn-secondary" type="button" disabled>
+            ⬇️ Download My Certificate
+          </button>
+          <div class="preview-footer-right">
+            <div class="brand-mark">K</div>
+            <span>KNS Business Lab</span>
           </div>
         </div>
       </div>
@@ -346,8 +334,6 @@
   </main>
 
   <script>
-    // Simple front-end only certificate generator using jsPDF
-
     const form = document.getElementById("certificateForm");
     const statusText = document.getElementById("formStatus");
     const previewWrapper = document.getElementById("previewWrapper");
@@ -366,91 +352,110 @@
       if (!data.fullName || !data.email || !data.phone || !data.course) {
         return "Please fill in all required fields (marked with *).";
       }
-      // Basic e-mail format check
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
         return "Please provide a valid email address.";
       }
       return null;
     }
 
-    function generatePdf({ fullName, email, phone, course }) {
+    function generatePdf({ fullName, course }) {
       const { jsPDF } = window.jspdf;
       const doc = new jsPDF({ orientation: "landscape", unit: "pt", format: "a4" });
 
       const pageWidth = doc.internal.pageSize.getWidth();
       const pageHeight = doc.internal.pageSize.getHeight();
 
+      // COLORS (KNS blue theme)
+      const blue = { r: 15, g: 107, b: 255 };
+      const dark = { r: 15, g: 23, b: 42 };
+
       // Background
-      doc.setFillColor(8, 47, 73); // dark teal
+      doc.setFillColor(255, 255, 255);
       doc.rect(0, 0, pageWidth, pageHeight, "F");
 
-      // Accent bar
-      doc.setFillColor(168, 85, 247); // purple
-      doc.rect(40, 50, 8, pageHeight - 100, "F");
+      // Border
+      doc.setDrawColor(blue.r, blue.g, blue.b);
+      doc.setLineWidth(3);
+      doc.rect(24, 24, pageWidth - 48, pageHeight - 48);
 
-      // Header text
-      doc.setTextColor(226, 232, 240);
+      // Right decorative strip
+      const stripWidth = 180;
+      doc.setFillColor(245, 248, 255);
+      doc.rect(pageWidth - stripWidth - 24, 24, stripWidth, pageHeight - 48, "F");
+
+      // Subtle circles pattern on right side
+      doc.setFillColor(219, 234, 254);
+      for (let y = 80; y < pageHeight - 100; y += 40) {
+        for (let x = pageWidth - stripWidth + 10; x < pageWidth - 40; x += 40) {
+          doc.circle(x, y, 6, "F");
+        }
+      }
+
+      // Header left: KNS name
+      doc.setTextColor(dark.r, dark.g, dark.b);
       doc.setFont("helvetica", "bold");
       doc.setFontSize(18);
-      doc.text("KNS Business Lab", 80, 80);
+      doc.text("KNS Business Lab", 60, 90);
 
       doc.setFont("helvetica", "normal");
       doc.setFontSize(10);
-      doc.text("Science-Based Mind Training Platform", 80, 96);
+      doc.setTextColor(100, 116, 139);
+      doc.text("Science-Based Mind Training Platform", 60, 106);
 
-      // Certificate title
+      // Title
       doc.setFont("times", "bold");
+      doc.setTextColor(dark.r, dark.g, dark.b);
       doc.setFontSize(30);
-      doc.text("Certificate of Completion", pageWidth / 2, 150, { align: "center" });
+      doc.text("Certificate of Completion", 60, 160);
 
       // Subtitle
       doc.setFont("helvetica", "normal");
       doc.setFontSize(12);
-      doc.text("This certificate is proudly presented to", pageWidth / 2, 190, { align: "center" });
+      doc.setTextColor(71, 85, 105);
+      doc.text("This certificate is proudly presented to", 60, 195);
 
-      // Name
+      // Name (large, left aligned)
       doc.setFont("times", "bold");
       doc.setFontSize(32);
-      doc.text(fullName, pageWidth / 2, 235, { align: "center" });
+      doc.setTextColor(dark.r, dark.g, dark.b);
+      doc.text(fullName, 60, 235);
 
       // Course line
       doc.setFont("helvetica", "normal");
       doc.setFontSize(12);
-      const line = `for successfully completing the course \"${course}\"`; 
-      doc.text(line, pageWidth / 2, 270, { align: "center" });
+      doc.setTextColor(71, 85, 105);
+      const courseLine = `for successfully completing the course \"${course}\"`;
+      doc.text(courseLine, 60, 270);
 
-      // Email / phone small details
-      doc.setFontSize(10);
-      doc.setTextColor(148, 163, 184);
-      doc.text(`Email: ${email}`, 80, pageHeight - 120);
-      doc.text(`Phone: ${phone}`, 80, pageHeight - 100);
+      // Signature area (left bottom)
+      const sigBaseY = pageHeight - 110;
+      const sigBaseX = 80;
 
-      // Signature block
-      const sigY = pageHeight - 110;
-      const sigX = pageWidth - 260;
+      // Optional signature image
+      const sigImg = document.getElementById("kajalSignature");
+      if (sigImg && sigImg.complete && sigImg.naturalWidth > 0) {
+        doc.addImage(sigImg, "PNG", sigBaseX, sigBaseY - 50, 140, 40);
+      }
 
-      // line
+      // Signature line
       doc.setDrawColor(148, 163, 184);
-      doc.line(sigX, sigY, pageWidth - 80, sigY);
+      doc.setLineWidth(1);
+      doc.line(sigBaseX, sigBaseY, sigBaseX + 200, sigBaseY);
 
-      doc.setTextColor(226, 232, 240);
       doc.setFontSize(11);
-      doc.text("Nayem Hossain", (sigX + pageWidth - 80) / 2, sigY + 18, { align: "center" });
+      doc.setTextColor(dark.r, dark.g, dark.b);
+      doc.text("Kajal Saha", sigBaseX + 100, sigBaseY + 18, { align: "center" });
       doc.setFontSize(9);
-      doc.text("Co-Founder & Trainer, KNS Business Lab", (sigX + pageWidth - 80) / 2, sigY + 32, {
-        align: "center",
-      });
+      doc.setTextColor(100, 116, 139);
+      doc.text("Founder, KNS Business Lab", sigBaseX + 100, sigBaseY + 32, { align: "center" });
 
-      // Decorative circles (simple pattern)
-      doc.setFillColor(34, 197, 94);
-      const baseY = 200;
-      const baseX = 90;
-      for (let row = 0; row < 3; row++) {
-        for (let col = 0; col < 4; col++) {
-          const cx = baseX + col * 22;
-          const cy = baseY + row * 22;
-          doc.circle(cx, cy, 4, "F");
-        }
+      // KNS logo bottom-right in decorative strip
+      const logoImg = document.getElementById("knsLogo");
+      if (logoImg && logoImg.complete && logoImg.naturalWidth > 0) {
+        const logoSize = 90;
+        const logoX = pageWidth - stripWidth - 24 + (stripWidth - logoSize) / 2;
+        const logoY = pageHeight - 24 - logoSize - 10;
+        doc.addImage(logoImg, "PNG", logoX, logoY, logoSize, logoSize);
       }
 
       return doc.output("blob");
@@ -489,7 +494,7 @@
 
       try {
         setStatus("Generating your certificate…");
-        const blob = generatePdf(data);
+        const blob = generatePdf({ fullName: data.fullName, course: data.course });
         updatePreview(blob);
         setStatus("Certificate generated successfully. You can download it now.");
       } catch (e) {
